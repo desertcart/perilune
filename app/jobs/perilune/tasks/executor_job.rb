@@ -30,7 +30,7 @@ module Perilune
       def executor
         raise UndefinedTaskKlass unless Object.const_defined?(task.task_klass)
 
-        @executor ||= task.task_klass.constantize.new(file: task.file.download, task:)
+        @executor ||= task.task_klass.constantize.new(file: task.file.download, task: task)
       end
     end
   end

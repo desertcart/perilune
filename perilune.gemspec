@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require_relative 'lib/perilune/version'
+
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = '>= 3.1'
+  spec.required_ruby_version = '>= 2.7'
   spec.name        = 'perilune'
-  spec.version     = '0.0.1'
+  spec.version     = Perilune::VERSION
   spec.authors     = ['Kartavya Pareek', 'Jozef Vaclavik']
   spec.email       = ['hi@dropbot.sh']
   spec.summary     = 'Summary of Perilune.'
@@ -19,9 +21,9 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'ledger_sync-domains', '~> 1.1.1'
   spec.add_dependency 'rails', '~> 7.0.0', '>= 7.0.0.0'
+  spec.add_dependency 'trifle-logger'
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'rspec-rails'
-  spec.add_dependency 'trifle-logger'
 end
