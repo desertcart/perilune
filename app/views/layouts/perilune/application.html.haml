@@ -1,0 +1,66 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title= content_for?(:page_title) ? sanitize(yield(:page_title), tags: []) : "Perilune"
+    = csrf_meta_tags
+    = csp_meta_tag
+    %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap", :rel => "stylesheet"}/
+    / Favicons
+    %link{:rel => 'apple-touch-icon', :sizes => '180x180', :href => "#{main_app.root_url}favicons/apple-touch-icon.png"}
+    %link{:rel => 'icon', :sizes => '16x16', :href => "#{main_app.root_url}perilune/favicons/favicon-16x16.png"}
+    %link{:rel => 'icon', :sizes => '32x32', :href => "#{main_app.root_url}perilune/favicons/favicon-32x32.png"}
+    %link{:rel => 'icon', :sizes => '48x48', :href => "#{main_app.root_url}perilune/favicons/favicon.ico"}
+    %link{:rel => 'mask-icon', :href => "#{main_app.root_url}perilune/favicons/safari-pinned-tab.svg"}
+    %link{:rel => 'manifest', :href => "#{main_app.root_url}perilune/favicons/site.webmanifest"}
+    %meta{:content => "#{main_app.root_url}perilune/favicons/ms-tile-150x150.png", :name => "msapplication-TileImage"}/
+    = action_cable_meta_tag
+
+    %script{:src => "https://cdn.tailwindcss.com"}
+
+  %body
+    - if user_signed_in?
+      %input{id: 'user_locale', type: 'hidden', value: current_user.full_time_zone}
+    .min-h-screen.bg-gray-100
+      %nav.bg-white.shadow-sm{'x-data' => "{ isMobileVisible: false }"}
+        / Desktop menu
+        .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+          .flex.justify-between.h-16
+            .flex
+              .flex-shrink-0.flex.items-center.px-6
+                = link_to perilune.root_path, class: 'h-8 w-auto font-mono' do
+                  %span.bg-clip-text.text-transparent.bg-gradient-to-r.bg-blue-200.from-blue-300.to-purple-400.text-2xl.font-bold Perilune
+              .hidden.sm:-my-px.sm:ml-6.sm:flex.sm:space-x-8
+                = link_to perilune.root_path, class: "border-transparent text-gray-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium hover:text-gray-700 hover:text-gray-300" do
+                  Dashboard
+                = link_to perilune.tasks_path, class: "border-transparent text-gray-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium hover:text-gray-700 hover:text-gray-300" do
+                  Tasks
+
+        / Mobile menu, show/hide based on menu state.
+        #mobile-menu.sm:hidden{':class' => "isMobileVisible ? 'visible' : 'hidden'"}
+          .pt-2.pb-3.space-y-1
+            = link_to perilune.root_path, class: "text-gray-600 border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" do
+              Dashboard
+            = link_to perilune.tasks_path, class: "text-gray-600 border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" do
+              Tasks
+
+
+      .py-10
+        %main
+          .max-w-7xl.mx-auto.sm:px-6.lg:px-8
+            .mt-2.mx-6
+              - flash.each do |type, message|
+                - case type
+                - when :error
+                  %div.p-4.mb-4.rounded-md.text-sm.font-medium.bg-red-100.text-red-800=message
+                - when :alert
+                  %div.p-4.mb-4.rounded-md.text-sm.font-medium.bg-yellow-100.text-yellow-800=message
+                - when :notice
+                  %div.p-4.mb-4.rounded-md.text-sm.font-medium.bg-indigo-100.text-indigo-800=message
+                - else
+                  %div.p-4.mb-4.rounded-md.text-sm.font-medium.bg-indigo-100.text-indigo-800=message
+            = yield
+
+    = yield :javascript 

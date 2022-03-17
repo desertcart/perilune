@@ -1,0 +1,5 @@
+- unless current_page.first?
+  = link_to url, rel: 'prev', remote: remote, class: 'relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50' do
+    %span.sr-only= raw(t 'views.pagination.previous')
+    %svg.h-4.w-4{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24", :xmlns => "http://www.w3.org/2000/svg"}
+      %path{:d => "M15 19l-7-7 7-7", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
