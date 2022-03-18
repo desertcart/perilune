@@ -13,6 +13,9 @@ module Perilune
       attribute :updated_at
       attribute :file_name
       attribute :file_url
+      attribute :file_size do |attr|
+        attr[:resource].file.try(:byte_size)
+      end
     end
   end
 end
