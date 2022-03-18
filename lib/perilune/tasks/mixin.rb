@@ -58,6 +58,18 @@ module Perilune
             key: task.id, reference: task.id, config: tracer_config
           )
         end
+
+        def track_stats(event:, success:)
+          Trifle::Stats.track(
+            key: "perilune::#{event}", at: Time.zone.now,
+            config: Trifle::Stat.mongo_config,
+            values: {
+              count: 1,
+              success: success ? 1 : 0,
+              failure: success ? 0 : 1
+            }
+          )
+        end
       end
     end
   end

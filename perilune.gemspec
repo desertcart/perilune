@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'ledger_sync-domains', '~> 1.1.1'
   spec.add_dependency 'rails', '~> 7.0.0', '>= 7.0.0.0'
   spec.add_dependency 'trifle-logger'
+  spec.add_dependency 'trifle-stats'
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'pg'
