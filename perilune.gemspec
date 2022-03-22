@@ -30,5 +30,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'database_cleaner-active_record'
   spec.add_development_dependency 'timecop'
   spec.add_development_dependency 'pry', '~> 0.13.1'
-
 end

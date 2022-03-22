@@ -26,7 +26,7 @@ module Perilune
     private
 
     def update_state_timestamp
-      self.send("#{state}_at=", Time.now) if self.respond_to?("#{state}_at")
+      send("#{state}_at=", Time.now) if respond_to?("#{state}_at")
     end
   end
 end
