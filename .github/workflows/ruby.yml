@@ -33,16 +33,11 @@ jobs:
         ports:
           - 5432:5432
 
-    strategy:
-      matrix:
-        ruby-version: ["2.7", "3.0"]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Setup app dependencies
-        run: |
-          gem install bundler -v 1.17.3 --no-document
-          bundle install --jobs 4 --retry 3
+      - name: Install postgres
+        run: sudo apt-get install libpq-dev
       - name: Setup Database
         env:
           RAILS_ENV: test
