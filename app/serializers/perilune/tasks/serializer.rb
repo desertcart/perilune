@@ -5,6 +5,7 @@ module Perilune
     class Serializer < LedgerSync::Domains::Serializer
       attribute :id
       attribute :task_klass
+      attribute :task_type
       attribute :attrs
       attribute :state
       attribute :tags

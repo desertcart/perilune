@@ -61,7 +61,7 @@ module Perilune
 
         def track_stats(event:, success:)
           Trifle::Stats.track(
-            key: "perilune::#{event}", at: Time.zone.now,
+            key: "Perilune::#{event.capitalize}", at: Time.zone.now,
             values: {
               count: 1,
               success: success ? 1 : 0,
