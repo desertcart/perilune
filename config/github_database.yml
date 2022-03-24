@@ -8,5 +8,6 @@ default: &default
 test:
   <<: *default
   database: dropbot_test
+  host: postgres
   username: postgres
   password: postgres
