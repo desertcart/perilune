@@ -1,6 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'database_cleaner/active_record'
-require 'ledger_sync-domains'
+require 'ledger_sync/domains'
 require 'factory_bot'
 require 'timecop'
 require 'pry'
