@@ -7,7 +7,7 @@ RSpec.describe Perilune::Tasks::ExecutorJob do
   subject(:perform) { Perilune::Tasks::ExecutorJob.new.perform(task.id) }
 
 
-  context "when no issue in the executor class" do
+  context "when there is no issue in the executor class" do
     let(:task) { create(:task, task_klass: 'SuccessClass') }
 
     it "sets processing_at timestamps" do

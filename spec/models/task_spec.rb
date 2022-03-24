@@ -10,14 +10,6 @@ RSpec.describe Perilune::Task, type: :model do
     Timecop.freeze(current_time)
   end
 
-  context "when setting state to uploaded" do
-    it "set uploaded_at to current timestamp" do
-      task.state = 'uploaded'
-      task.save
-      expect(task.uploaded_at).to eq(current_time)
-    end
-  end
-
   context "when setting state to processing" do
     it "set processing_at to current timestamp" do
       task.state = 'processing'
