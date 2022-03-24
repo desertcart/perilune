@@ -1,13 +1,11 @@
 default: &default
   adapter: postgresql
-  encoding: utf8
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  encoding: unicode
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+  pool: 5
+  database: <%= ENV['POSTGRES_DB'] %>
 
 test:
   <<: *default
-  database: dropbot_test
-  host: postgres
-  username: postgres
-  password: postgres
