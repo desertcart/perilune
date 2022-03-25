@@ -4,7 +4,7 @@ module Perilune
   class Task < ApplicationRecord
     self.table_name = 'perilune_tasks'
     validates :state, inclusion: {
-      in: %w[draft uploaded processed failed],
+      in: %w[draft started processed failed],
       message: '%<value>s is not a valid state'
     }
     validates :task_klass, presence: true

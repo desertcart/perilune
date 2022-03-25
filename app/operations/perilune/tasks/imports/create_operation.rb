@@ -31,6 +31,7 @@ module Perilune
           @task ||= Perilune::Task.new(
             state: 'draft',
             task_klass: params[:task_klass],
+            task_type: 'Import',
             tags: params[:tags]
           )
         end

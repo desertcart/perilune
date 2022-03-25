@@ -5,6 +5,7 @@ PATH
       ledger_sync-domains (~> 1.1.1)
       rails (~> 7.0.0, >= 7.0.0.0)
       trifle-logger
+      trifle-stats
 
 GEM
   remote: https://rubygems.org/
@@ -75,6 +76,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     ast (2.4.2)
+    bson (4.14.1)
     builder (3.2.4)
     colorize (0.8.1)
     concurrent-ruby (1.1.9)
@@ -184,6 +186,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
+    mongo (2.17.0)
+      bson (>= 4.8.2, < 5.0.0)
     multipart-post (2.1.1)
     net-imap (0.2.3)
       digest
@@ -201,6 +205,8 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
+    nokogiri (1.13.3-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
     openssl (2.2.1)
@@ -243,6 +249,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
+    redis (4.6.0)
     regexp_parser (2.2.1)
     resonad (1.4.0)
     rexml (3.2.5)
@@ -289,6 +296,11 @@ GEM
     thor (1.2.1)
     timeout (0.2.0)
     trifle-logger (0.3.1)
+    trifle-stats (0.4.1)
+      mongo (>= 2.14.0)
+      pg (>= 1.2)
+      redis (>= 4.2)
+      tzinfo (~> 2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -298,6 +310,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  x86_64-darwin-20
   x86_64-linux
 
 DEPENDENCIES
