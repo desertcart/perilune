@@ -38,7 +38,7 @@ module Perilune
         count_hash = success ? { count: 1, success: 1 } : { count: 1, failure: 1 }
         inner_hash = { event.downcase.intern => count_hash }
         Trifle::Stats.track(
-          key: "Perilune::#{event.capitalize}", at: Time.zone.now,
+          key: "perilune::#{event.downcase}", at: Time.zone.now,
           values: count_hash.merge(inner_hash)
         )
       end
