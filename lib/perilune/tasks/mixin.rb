@@ -18,6 +18,7 @@ module Perilune
         end
 
         def execute
+          task.update(state: 'processing')
           operate
         rescue StandardError => e
           failure(e.message)

@@ -16,6 +16,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_db_test
+        options: >-
+                  --health-cmd pg_isready
+                  --health-interval 10s
+                  --health-timeout 5s
+                  --health-retries 5
+        ports:
+          - 5432:5432
+
     strategy:
       matrix:
         ruby-version: ["2.7", "3.0"]
@@ -30,7 +45,20 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Rspec
-        run: bundle exec rspec
+#      - name: Install library for postgres
+#        run: sudo apt-get install libpq-dev
+#      - name: Setup Database
+#        run: |
+#          cp config/github_database.yml config/database.yml
+#          bundle exec rails db:create db:schema:load
+#        env:
+#          RAILS_ENV: test
+#          POSTGRES_HOST: postgres
+#          POSTGRES_USER: postgres
+#          POSTGRES_PASSWORD: postgres
+#          POSTGRES_DB: ci_db_test
+#          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+#      - name: Rspec
+#        run: bundle exec rspec
       - name: Rubocop
         run: bundle exec rubocop
