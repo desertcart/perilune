@@ -3,7 +3,7 @@
 module Perilune
   module Tasks
     class ExecutorJob < ApplicationJob
-      queue_as PeriluneJob.default_queue
+      queue_as Perilune.default.queue_name
 
       class UndefinedTaskKlass < StandardError; end
 
