@@ -16,4 +16,18 @@ RSpec.describe Perilune::Tasks::ExecutorJob do
       expect(task.processing_at).not_to eq(nil)
     end
   end
+
+  context "change the default queue name" do
+
+    it "sets default queue name as default" do
+      expect(Perilune.default.queue_name).to eq('default')
+    end
+
+    it "sets default queue name as perilune_queue" do
+      Perilune.configure do |config|
+        config.queue_name = 'perilune_queue'
+      end
+      expect(Perilune.default.queue_name).to eq('perilune_queue')
+    end
+  end
 end
