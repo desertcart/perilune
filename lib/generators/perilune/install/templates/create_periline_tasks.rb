@@ -14,5 +14,6 @@ class CreatePeriluneTask < ActiveRecord::Migration[7.0]
       t.datetime :failed_at
       t.timestamps
     end
+    add_index :perilune_tasks, :tags, using: :gin
   end
 end
