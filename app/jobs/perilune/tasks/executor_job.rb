@@ -39,7 +39,7 @@ module Perilune
         inner_hash = { event.downcase.intern => count_hash }
         Trifle::Stats.track(
           key: "perilune::#{event.downcase}", at: Time.zone.now,
-          config: Perilune::Trifle::Stat.configuration,
+          config: Perilune.default.stats_driver_config,
           values: count_hash.merge(inner_hash)
         )
       end
