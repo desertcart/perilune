@@ -2,15 +2,14 @@
 
 module Perilune
   class Configuration
-    attr_accessor :queue_name, :trifle_stat_driver, :trifle_stat_track_ranges,
-                  :trifle_stat_time_zone, :trifle_stat_beginning_of_week
+    def queue_name
+      :default
+    end
 
-    def initialize
-      @queue_name = :default
-      @trifle_stat_driver = ::Trifle::Stats::Driver::Redis.new
-      @trifle_stat_track_ranges = %i[hour day week month quarter year]
-      @trifle_stat_time_zone = 'GMT'
-      @trifle_stat_beginning_of_week = :monday
+    def stats_driver_config
+      config = ::Trifle::Stats::Configuration.new
+      config.driver = ::Trifle::Stats::Driver::Redis.new
+      config
     end
   end
 end

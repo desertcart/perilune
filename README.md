@@ -36,10 +36,7 @@ You can configure the driver for Trifle::Stats :
 
 ```ruby
 Periline::Configuration do |config|
-  config.trifle_stat_driver = ::Trifle::Stats::Driver::Redis.new
-  config.trifle_stat_track_ranges = %i[hour day week month quarter year]
-  config.trifle_stat_time_zone = 'GMT'
-  config.trifle_stat_beginning_of_week = :monday
+  config.stats_driver = ::Trifle::Stats::Driver::Redis.new
 end
 ```
 You can find more driver [here](https://trifle.io/docs/stats/drivers/)
