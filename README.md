@@ -27,12 +27,8 @@ You can use diffrent queue name for cron job:
 ```ruby
 # frozen_string_literal: true
 
-module Perilune
-  class Configuration
-    def queue_name
-      :dropbot_default
-    end
-  end
+Perilune.configure do |config|
+  config.queue_name = 'test'
 end
 
 ```
@@ -42,18 +38,10 @@ end
 You can configure the driver for Trifle::Stats :
 
 ```ruby
-module Perilune
-  class Configuration
-    def stats_driver_config
-      config = ::Trifle::Stats::Configuration.new
-      config.driver =  ::Trifle::Stats::Driver::Postgres.new(
-        ActiveRecord::Base.connection.instance_variable_get('@connection')
-      )
-      config.track_ranges = [:day]
-      config.time_zone =  'Asia/Dubai'
-      config
-    end
-  end
+Perilune.configure do |config|
+  config.stat_driver = Trifle::Stats::Driver::Postgres.new(
+    ActiveRecord::Base.connection.instance_variable_get('@connection')
+  )
 end
 ```
 You can find more driver [here](https://trifle.io/docs/stats/drivers/)
