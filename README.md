@@ -35,7 +35,7 @@ end
 
 > Note - Perilune is using *default* as queue name.
 
-You can configure the driver for Trifle::Stats :
+Perilune using Redis as defualt driver for Trifle Stats. You can configure the driver for Trifle::Stats:
 
 ```ruby
 Perilune.configure do |config|
