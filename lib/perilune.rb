@@ -5,7 +5,8 @@ require 'perilune/tasks/mixin'
 require 'perilune/configuration'
 
 module Perilune
-  # Your code goes here...
+  FACTORY_PATH = File.expand_path('../spec/factories', __dir__)
+
   def self.default
     @default ||= Configuration.new
   end
