@@ -3,7 +3,7 @@
 module Perilune
   module Tasks
     class ExecutorJob < ApplicationJob
-      queue_as :default
+      queue_as Perilune.default.queue_name
 
       class UndefinedTaskKlass < StandardError; end
 
@@ -39,6 +39,7 @@ module Perilune
         inner_hash = { event.downcase.intern => count_hash }
         Trifle::Stats.track(
           key: "perilune::#{event.downcase}", at: Time.zone.now,
+          config: Perilune.default.stats_driver_config,
           values: count_hash.merge(inner_hash)
         )
       end
