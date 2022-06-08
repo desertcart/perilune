@@ -21,7 +21,7 @@
                   .rounded-sm.font-mono.text-sm.px-2.w-auto.max-w-max.break-normal.text-purple-500.bg-blue-100= resource.task_klass
                 %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500= task_state(resource)
                 %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500
-                  - resource.tags.each do |tag|
+                  - resource.tags&.each do |tag|
                     %span.inline-flex.items-center.px-3.py-0.5.rounded-full.text-sm.font-medium.bg-blue-100.text-blue-800= tag
                 %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500= resource.created_at.to_s
                 %td.px-6.py-4.whitespace-nowrap.text-right.text-sm.font-medium
