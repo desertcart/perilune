@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version     = Perilune::VERSION
   spec.authors     = ['Kartavya Pareek', 'Jozef Vaclavik']
   spec.email       = ['hi@dropbot.sh']
-  spec.summary     = 'Summary of Perilune.'
-  spec.description = 'Description of Perilune.'
-  spec.homepage    = 'https://engineering.dropbot.sh'
+  spec.summary     = 'Add Imports and Exports to your app with ease.'
+  spec.description = 'Perilune is a Rails Engine that allows you to define Task classes for procesing files and handles their processing on the background for you.'
+  spec.homepage    = 'https://dropbot.sh'
   spec.license     = 'MIT'
 
   spec.metadata['homepage_uri'] = spec.homepage
