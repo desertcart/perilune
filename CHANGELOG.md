@@ -1,4 +1,7 @@
 ## [Unreleased]
+
+## 0.1.2 - 2022-07-07
+
 - Feature: Custom configuration for Trifle:Stat and Cron Job Queue Name
 
 - Feature: Migration and Generater added for create the required table

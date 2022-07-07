@@ -19,8 +19,8 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'Rakefile', 'README.md']
 
-  spec.add_dependency 'ledger_sync-domains', '~> 1.1.1'
-  spec.add_dependency 'rails', '~> 7.0.0', '>= 7.0.0.0'
+  spec.add_dependency 'ledger_sync-domains', '~> 1.2'
+  spec.add_dependency 'rails', '~> 7.0', '>= 7.0.0.0'
   spec.add_dependency 'trifle-logger'
   spec.add_dependency 'trifle-stats'
   spec.add_development_dependency 'database_cleaner-active_record'
