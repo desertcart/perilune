@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     perilune (0.1.2)
+      factory_bot_rails
       ledger_sync-domains (~> 1.2)
       rails (~> 7.0, >= 7.0.0.0)
       trifle-logger
@@ -316,7 +317,6 @@ PLATFORMS
 DEPENDENCIES
   database_cleaner-active_record
   dotenv-rails
-  factory_bot_rails
   perilune!
   pg
   pry (~> 0.13.1)
