@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Kartavya Pareek', 'Jozef Vaclavik']
   spec.email       = ['hi@dropbot.sh']
   spec.summary     = 'Add Imports and Exports to your app with ease.'
-  spec.description = 'Perilune is a Rails Engine that allows you to define Task classes for procesing files and handles their processing on the background for you.'
+  spec.description = 'Perilune is a Rails Engine that allows you to define Task classes for'\
+                     'procesing files and handles their processing on the background for you.'
   spec.homepage    = 'https://dropbot.sh'
   spec.license     = 'MIT'
 
@@ -19,13 +20,13 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'Rakefile', 'README.md']
 
+  spec.add_dependency 'factory_bot_rails'
   spec.add_dependency 'ledger_sync-domains', '~> 1.2'
   spec.add_dependency 'rails', '~> 7.0', '>= 7.0.0.0'
   spec.add_dependency 'trifle-logger'
   spec.add_dependency 'trifle-stats'
   spec.add_development_dependency 'database_cleaner-active_record'
   spec.add_development_dependency 'dotenv-rails'
-  spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'pry', '~> 0.13.1'
   spec.add_development_dependency 'rspec-rails'
