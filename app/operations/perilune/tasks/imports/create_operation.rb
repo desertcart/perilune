@@ -12,6 +12,7 @@ module Perilune
             required(:file).maybe(type?: Tempfile)
             required(:task_klass).filled(:string)
             optional(:tags).filled(:array)
+            optional(:attrs).filled(:hash)
           end
         end
 
@@ -32,7 +33,8 @@ module Perilune
             state: 'draft',
             task_klass: params[:task_klass],
             task_type: 'Import',
-            tags: params[:tags]
+            tags: params[:tags],
+            attrs: params[:attrs]
           )
         end
 
