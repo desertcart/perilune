@@ -12,11 +12,16 @@ module Perilune
       attribute :error_data
       attribute :created_at
       attribute :updated_at
+      attribute :processing_at
+      attribute :processed_at
+      attribute :failed_at
       attribute :file_name
       attribute :file_url
       attribute :file_size do |attr|
         attr[:resource].file.try(:byte_size)
       end
+      attribute :trace_state
+      attribute :trace_data
     end
   end
 end

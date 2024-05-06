@@ -21,10 +21,8 @@
     %script{:src => "https://cdn.tailwindcss.com"}
 
   %body
-    - if user_signed_in?
-      %input{id: 'user_locale', type: 'hidden', value: current_user.full_time_zone}
     .min-h-screen.bg-gray-100
-      %nav.bg-white.shadow-sm{'x-data' => "{ isMobileVisible: false }"}
+      %nav.bg-white.shadow-s
         / Desktop menu
         .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
           .flex.justify-between.h-16
@@ -38,13 +36,6 @@
                 = link_to perilune.tasks_path, class: "border-transparent text-gray-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium hover:text-gray-700 hover:text-gray-300" do
                   Tasks
 
-        / Mobile menu, show/hide based on menu state.
-        #mobile-menu.sm:hidden{':class' => "isMobileVisible ? 'visible' : 'hidden'"}
-          .pt-2.pb-3.space-y-1
-            = link_to perilune.root_path, class: "text-gray-600 border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" do
-              Dashboard
-            = link_to perilune.tasks_path, class: "text-gray-600 border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" do
-              Tasks
 
 
       .py-10

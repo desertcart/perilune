@@ -25,13 +25,22 @@
       .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
         %dt.text-sm.font-medium.text-gray-500 Updated At
         %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2 #{@resource.updated_at.to_s}
+      .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        %dt.text-sm.font-medium.text-gray-500 Processing At
+        %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2 #{@resource.processing_at.to_s}
+      .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        %dt.text-sm.font-medium.text-gray-500 Processed At
+        %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2 #{@resource.processed_at.to_s}
+      .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        %dt.text-sm.font-medium.text-gray-500 Failed At
+        %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2 #{@resource.failed_at.to_s}
       - if @resource.state.to_sym == :failed
         .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
           %dt.text-sm.font-medium.text-gray-500 Error
           %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2
             %code #{@resource.error_data}
       .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
-        %dt.text-sm.font-medium.text-gray-500 Attachment
+        %dt.text-sm.font-medium.text-gray-500 Attachmentssss
         %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2
           %ul.border.border-gray-200.rounded-md.divide-y.divide-gray-200{:role => "list"}
             %li.pl-3.pr-4.py-3.flex.items-center.justify-between.text-sm
@@ -42,3 +51,36 @@
                 %span.text-sm.text-gray-500 #{number_to_human_size(@resource.file_size)}
               .ml-4.flex-shrink-0
                 = link_to 'Download', @resource.file_url, class: 'font-medium text-indigo-400 hover:text-indigo-900'
+      .py-4.sm:py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+        %dt.text-sm.font-medium.text-gray-500 Task Trace
+        %dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2 #{trace_state(@resource)}
+      .sm:grid.sm:grid-cols-1.sm:gap-4
+        .min-w-full.overflow-x-auto.overflow-hidden
+          %table.min-w-full.divide-y.divide-gray-50
+            %thead
+              %tr
+                %th{width: '40px'}
+                %th{width: '200px'}
+                %th
+            %tbody.divide-y.bg-white.divide-gray-50
+              - index = 0
+              - (@resource.trace_data || []).each_with_index do |line, i|
+                - index += 1
+                %tr{class: "#{'bg-gray-100' if i.zero?} hover:bg-gray-200"}
+                  %td.font-mono.px-2.py-0.text-sm.text-gray-500.text-right.align-top= index
+                  %td.font-mono.px-2.py-0.text-sm.max-w-fit.w-64.text-right
+                    = Time.at(line['at'].to_i).to_s
+                  %td.font-mono.px-2.py-0.text-sm{class: "#{'text-slate-800' if i.zero?}"}
+                    - if line['type'].to_s == 'media'
+                      - artifact = Artifact.new(log_entry: resource, name: line['message'])
+                      - if artifact.video?
+                        %video{width: '400', height: '300', controls: ''}
+                          %source{src: artifact.url, type: 'video/mp4'}
+                          Your browser does not support the video tag.
+                      - if artifact.image?
+                        %img{width: '400', height: '300', src: artifact.url}
+                      = link_to artifact.name, artifact.url, target: '_blank'
+                      - if line['size']
+                        %span.inline.text-sm.text-gray-500 #{number_to_human_size(line['size'])}
+                    - unless line['type'].to_s == 'media'
+                      %span{class: "#{'text-red-500' if line['state'].to_s == 'error'} #{'text-blue-500' if line['state'].to_s == 'debug'}"}= line['message']
