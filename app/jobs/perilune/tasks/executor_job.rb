@@ -12,9 +12,7 @@ module Perilune
         executor.execute
         executor.success? ? success : failure
       rescue StandardError => e
-        failure
-        tracer.trace("Exception: #{e.message}", state: :error) { e.backtrace }
-        tracer.fail!
+        crash(e)
       ensure
         tracer.trace('Done.')
         tracer.wrapup
@@ -34,6 +32,12 @@ module Perilune
       def failure
         track_stats(success: false)
         task.update(state: 'failed', error_data: { executor_error: executor.errors })
+      end
+
+      def crash(error)
+        failure
+        tracer.trace("Exception: #{error.message}", state: :error) { error.backtrace }
+        tracer.fail!
       end
 
       def executor
@@ -71,7 +75,8 @@ module Perilune
         count_hash = success ? { count: 1, success: 1 } : { count: 1, failure: 1 }
         inner_hash = { task.task_klass.downcase.intern => count_hash }
         Trifle::Stats.track(
-          key: "perilune::#{task.task_type.downcase}::#{task.task_klass.downcase}", at: Time.zone.now,
+          key: "perilune::#{task.task_type.downcase}::#{task.task_klass.downcase}",
+          at: Time.zone.now,
           config: Perilune.default.stats_driver_config,
           values: count_hash.merge(inner_hash)
         )
