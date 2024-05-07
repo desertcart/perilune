@@ -6,7 +6,7 @@ module Perilune
 
     def initialize
       @queue_name = :default
-      @stat_driver = ::Trifle::Stats::Driver::Redis.new
+      @stat_driver = ::Trifle::Stats::Driver::Redis.new(::Redis.new)
     end
 
     def stats_driver_config
