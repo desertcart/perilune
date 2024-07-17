@@ -78,7 +78,7 @@ module Perilune
           key: "perilune::#{task.task_type.downcase}::#{task.task_klass.downcase}",
           at: Time.zone.now,
           config: Perilune.default.stats_driver_config,
-          values: count_hash.merge(inner_hash)
+          values: inner_hash
         )
       end
     end

@@ -8,7 +8,7 @@ RSpec.describe Perilune::Tasks::ExecutorJob do
 
 
   context "when there is no issue in the executor class" do
-    let(:task) { create(:task, task_klass: 'SuccessClass') }
+    let(:task) { create(:task, task_klass: 'SuccessClass', task_type: 'Export') }
 
     it "sets processing_at timestamps" do
       perform
@@ -18,9 +18,8 @@ RSpec.describe Perilune::Tasks::ExecutorJob do
   end
 
   context "when changing the default queue name" do
-
     it "sets the queue name as default" do
-      expect(Perilune.default.queue_name).to eq('default')
+      expect(Perilune.default.queue_name).to eq(:default)
     end
 
     it "it sets the queue name with changed value" do
