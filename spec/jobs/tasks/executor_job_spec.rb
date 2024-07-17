@@ -2,18 +2,55 @@
 
 require 'rails_helper'
 require_relative 'test_classes/success_class'
+require_relative 'test_classes/failure_class'
 
 RSpec.describe Perilune::Tasks::ExecutorJob do
   subject(:perform) { Perilune::Tasks::ExecutorJob.new.perform(task.id) }
 
+  let(:task) { create(:task, task_klass: task_klass, task_type: task_type) }
 
-  context "when there is no issue in the executor class" do
-    let(:task) { create(:task, task_klass: 'SuccessClass', task_type: 'Export') }
+
+  context "when the executor class is successful" do
+    let(:task_klass) { 'SuccessClass' }
+    let(:task_type) { 'Export' }
 
     it "sets processing_at timestamps" do
       perform
       task.reload
       expect(task.processing_at).not_to eq(nil)
+    end
+
+    it "tracks stats with success" do
+      expect(Trifle::Stats).to receive(:track).with(hash_including(values: hash_including(successclass: hash_including(success: 1, is_import: 0))))
+
+      perform
+    end
+  end
+
+  context "when the executor class fails" do
+    let(:task_klass) { 'FailureClass' }
+    let(:task_type) { 'Import' }
+
+    before { allow_any_instance_of(FailureClass).to receive(:success?).and_return(false) }
+
+    it "updates the task state to failed" do
+      perform
+      task.reload
+      expect(task.state).to eq('failed')
+    end
+
+    it "tracks stats with failure" do
+      expect(Trifle::Stats).to receive(:track).with(hash_including(values: hash_including(failureclass: hash_including(success: 0, is_import: 1))))
+      perform
+    end
+  end
+
+  context "when an exception occurs" do
+    let(:task_klass) { 'UndefinedClass' }
+    let(:task_type) { 'Import' }
+
+    it "raises an error" do
+      expect { perform }.to raise_error(Perilune::Tasks::ExecutorJob::UndefinedTask)
     end
   end
 
