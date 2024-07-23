@@ -21,7 +21,7 @@ RSpec.describe Perilune::Tasks::ExecutorJob do
     end
 
     it "tracks stats with success" do
-      expect(Trifle::Stats).to receive(:track).with(hash_including(values: hash_including(successclass: hash_including(success: 1, is_import: 0))))
+      expect(Trifle::Stats).to receive(:track).with(hash_including(values: hash_including(export: hash_including(count: 1, duration: a_kind_of(Float)))))
 
       perform
     end
@@ -40,7 +40,7 @@ RSpec.describe Perilune::Tasks::ExecutorJob do
     end
 
     it "tracks stats with failure" do
-      expect(Trifle::Stats).to receive(:track).with(hash_including(values: hash_including(failureclass: hash_including(success: 0, is_import: 1))))
+      expect(Trifle::Stats).to receive(:track).with(hash_including(values: hash_including(import: hash_including(count: 1, duration: a_kind_of(Float)))))
       perform
     end
   end
