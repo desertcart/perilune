@@ -78,20 +78,21 @@ module Perilune
       end
 
       def track_stats(success:)
+        task_type = task.task_type.downcase == 'import' ? 'import' : 'export'
+        state = success ? 'success' : 'failure'
+
         Trifle::Stats.track(
-          key: "perilune::#{task.task_type.downcase}::#{task.task_klass.downcase}",
+          key: "perilune::#{task_type}::#{state}",
           at: Time.zone.now,
           config: Perilune.default.stats_driver_config,
-          values: trifle_values_hash(success:)
+          values: trifle_values_hash(success:, task_type:)
         )
       end
 
-      def trifle_values_hash(success:)
+      def trifle_values_hash(success:, task_type:)
         {
-          task.task_klass.downcase.intern => {
+          task_type.to_sym => {
             count: 1,
-            success: success ? 1 : 0,
-            is_import: task.task_type.downcase == 'import' ? 1 : 0,
             duration: @duration || 0
           }
         }

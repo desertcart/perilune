@@ -1,6 +1,7 @@
+%script{:src => "https://code.highcharts.com/highcharts.js"}
+%script{:src => "https://unpkg.com/alpinejs"}
 
-
-.bg-white.overflow-hidden.shadow.rounded-lg
+.bg-white.overflow-hidden.shadow.rounded-lg.mb-6
   .px-4.py-5.sm:p-6
     %div.mb-4
       %span.text-2xl.font-bold perilune
@@ -17,3 +18,22 @@
     %div.mt-2.ml-8
       %span.text-gray-400 2
       %span.ml-2 that thing that processes your files and makes your life a bit easier.
+
+%div{"x-data" => "{ tab: 'success' }"}
+  %div.items-center.justify-center.mb-4.text-center
+    %button{class: "z-10 border font-bold uppercase text-xs px-4 py-2 rounded-l outline-none focus:outline-none mb-1", ":class" => "{ 'bg-blue-600 text-white border-blue-600': tab === 'success', 'text-blue-600 bg-transparent border-blue-600': tab !== 'success' }", "@click" => "tab = 'success'"} Import chart
+    %button{class: "z-10 border font-bold uppercase text-xs px-4 py-2 rounded-r outline-none focus:outline-none mb-1", ":class" => "{ 'bg-blue-600 text-white border-blue-600': tab === 'fail', 'text-blue-600 bg-transparent border-blue-600': tab !== 'fail' }", "@click" => "tab = 'fail'"} Export chart
+
+  .bg-white.overflow-hidden.shadow.rounded-lg.mb-6
+    .px-4.py-5.sm:p-6
+      %div.mb-4
+        %span.text-2xl.font-bold Statuses and Average Durations
+      %hr
+
+    %div{"x-show" => "tab === 'success'"}
+      #success-chart
+        = render partial: 'import_chart'
+
+    %div{"x-show" => "tab === 'fail'"}
+      #fail-chart
+        = render partial: 'export_chart'
