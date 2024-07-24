@@ -1,4 +1,4 @@
-- success_series, failure_series = get_general_success_and_failure_series(type: 'export', from: DateTime.now - 1.day, to: DateTime.now + 1.hours)
+- success_series, failure_series = get_general_success_and_failure_series(type: 'export', from: Time.zone.now - 1.day, to: Time.zone.now + 1.hours)
 
 :javascript
   document.addEventListener('DOMContentLoaded', function () {
