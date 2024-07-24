@@ -89,11 +89,19 @@ module Perilune
         )
       end
 
+      def duration_to_ms
+        return 0 unless @duration.present? && !@duration.zero?
+
+        (@duration * 1000).round
+      end
+
       def trifle_values_hash(success:, task_type:)
+        @duration = @duration ? @duration * 1000 : 0
+
         {
           task_type.to_sym => {
             count: 1,
-            duration: @duration || 0
+            duration: duration_to_ms
           }
         }
       end

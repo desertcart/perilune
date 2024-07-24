@@ -20,12 +20,12 @@
       yAxis: {
         min: 0,
         title: {
-          text: 'Avg duration'
+          text: 'Avg duration (ms)'
         }
       },
       tooltip: {
         headerFormat: '<b>{point.x:%e. %b %Y, %H:%M}</b><br/>',
-        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        pointFormat: '<br/>Duration: {point.y}ms'
       },
       plotOptions: {
         column: {
@@ -37,12 +37,12 @@
       },
       series: [
         {
-          name: 'Failure avg duration',
+          name: 'Failure avg duration (ms)',
           data: #{raw(failure_series.to_json)},
           color: 'red'
         },
         {
-          name: 'Success avg duration',
+          name: 'Success avg duration (ms)',
           data: #{raw(success_series.to_json)},
           color: 'green'
         }
