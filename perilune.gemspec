@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'redis'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'timecop'
-  spec.add_development_dependency 'redis'
 end

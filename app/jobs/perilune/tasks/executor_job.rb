@@ -85,7 +85,7 @@ module Perilune
           key: "perilune::#{task_type}::#{state}",
           at: Time.zone.now,
           config: Perilune.default.stats_driver_config,
-          values: trifle_values_hash(success:, task_type:)
+          values: trifle_values_hash(task_type: task_type)
         )
       end
 
@@ -95,7 +95,7 @@ module Perilune
         (@duration * 1000).round
       end
 
-      def trifle_values_hash(success:, task_type:)
+      def trifle_values_hash(task_type:)
         @duration = @duration ? @duration * 1000 : 0
 
         {
