@@ -18,11 +18,9 @@
     %meta{:content => "#{main_app.root_url}perilune/favicons/ms-tile-150x150.png", :name => "msapplication-TileImage"}/
     = action_cable_meta_tag
 
-    = javascript_include_tag "application"
-
-    %script{:src => "https://cdn.tailwindcss.com"}
-
-  %body{'data-turbo' => 'false'}
+    = stylesheet_link_tag 'perilune_css'
+    = javascript_include_tag "perilune"
+  %body
     .min-h-screen.bg-gray-100
       %nav.bg-white.shadow-s
         / Desktop menu
