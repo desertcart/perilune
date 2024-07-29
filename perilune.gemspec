@@ -28,7 +28,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'database_cleaner-active_record'
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'pg'
-  spec.add_development_dependency 'pry', '~> 0.13.1'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'redis'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'timecop'
 end

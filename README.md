@@ -127,7 +127,7 @@ end
 Thats pretty much it.
 
 ## Contributing
-Contribution directions go here.
+Whenever you change the views, you should run `npm run build` to compile the assets.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

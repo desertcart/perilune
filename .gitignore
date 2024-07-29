@@ -9,3 +9,6 @@
 /spec/dummy/storage/
 /spec/dummy/tmp/
 /.DS_Store
+/node_modules
+.idea
+.tool-versions

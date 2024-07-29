@@ -7,4 +7,3 @@ gemspec
 
 gem 'rubocop', '~> 1.25'
 gem 'sprockets-rails' # Required from Rails 7
-

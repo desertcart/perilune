@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'benchmark'
+
 module Perilune
   module Tasks
     class ExecutorJob < ApplicationJob
@@ -9,7 +11,11 @@ module Perilune
 
       def perform(task_id)
         @task_id = task_id
-        executor.execute
+
+        @duration = Benchmark.realtime do
+          executor.execute
+        end
+
         executor.success? ? success : failure
       rescue StandardError => e
         crash(e)
@@ -72,14 +78,32 @@ module Perilune
       end
 
       def track_stats(success:)
-        count_hash = success ? { count: 1, success: 1 } : { count: 1, failure: 1 }
-        inner_hash = { task.task_klass.downcase.intern => count_hash }
+        task_type = task.task_type.downcase == 'import' ? 'import' : 'export'
+        state = success ? 'success' : 'failure'
+
         Trifle::Stats.track(
-          key: "perilune::#{task.task_type.downcase}::#{task.task_klass.downcase}",
+          key: "perilune::#{task_type}::#{state}",
           at: Time.zone.now,
           config: Perilune.default.stats_driver_config,
-          values: count_hash.merge(inner_hash)
+          values: trifle_values_hash(task_type: task_type)
         )
+      end
+
+      def duration_to_ms
+        return 0 unless @duration.present? && !@duration.zero?
+
+        (@duration * 1000).round
+      end
+
+      def trifle_values_hash(task_type:)
+        @duration = @duration ? @duration * 1000 : 0
+
+        {
+          task_type.to_sym => {
+            count: 1,
+            duration: duration_to_ms
+          }
+        }
       end
     end
   end

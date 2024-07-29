@@ -1,0 +1,53 @@
+- success_series, failure_series = get_general_success_and_failure_series(type: 'export', from: Time.zone.now - 1.day, to: Time.zone.now + 1.hours)
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function () {
+    Highcharts.chart('export_chart_container', {
+      chart: {
+        type: 'column'
+      },
+      title: false,
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: {
+          minute: '%H:%M',
+          hour: '%H:%M'
+        },
+        title: {
+          text: 'Time'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Avg duration (ms)'
+        }
+      },
+      tooltip: {
+        headerFormat: '<b>{point.x:%e. %b %Y, %H:%M}</b><br/>',
+        pointFormat: '<br/>Duration: {point.y}ms'
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      series: [
+        {
+          name: 'Failure avg duration (ms)',
+          data: #{raw(failure_series.to_json)},
+          color: 'red'
+        },
+        {
+          name: 'Success avg duration (ms)',
+          data: #{raw(success_series.to_json)},
+          color: 'green'
+        }
+      ]
+    });
+  });
+
+%div{id: "export_chart_container"}
