@@ -15,12 +15,10 @@ module Perilune
         end
       end
 
+      private
+
       def resources
         @resources ||= super.where('? = ANY (tags)', params[:tag])
-      end
-
-      def serializer_for(*)
-        Perilune::Tasks::Serializer.new
       end
     end
   end
