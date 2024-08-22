@@ -9,6 +9,7 @@ module Perilune
         attribute :state
         attribute :tags
         attribute :created_at
+        attribute :file_name
       end
     end
   end
