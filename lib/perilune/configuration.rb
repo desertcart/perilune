@@ -14,7 +14,7 @@ module Perilune
       config.driver = @stat_driver
       config.time_zone = 'GMT'
       config.beginning_of_week = :monday
-      config.track_ranges = %i[hour day week month quarter year]
+      config.granularities = %w[1h 1d 1w 1m 1q 1y]
       config
     end
   end
