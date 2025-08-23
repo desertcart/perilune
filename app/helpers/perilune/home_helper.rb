@@ -21,7 +21,7 @@ module Perilune
     def get_general_series_for(type:, from:, to:, status:)
       series = Trifle::Stats.series(
         key: "perilune::#{type}::#{status}", from: from, to: to,
-        range: :hour, skip_blanks: true
+        granularity: '1h', skip_blanks: true
       )
 
       series.transpond.average(
