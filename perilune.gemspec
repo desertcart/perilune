@@ -21,9 +21,9 @@ Gem::Specification.new do |spec|
   spec.files = Dir['{app,config,db,lib}/**/*', 'Rakefile', 'README.md']
 
   spec.add_dependency 'factory_bot_rails'
-  spec.add_dependency 'ledger_sync-domains', '~> 1.2'
+  spec.add_dependency 'ledger_sync-domains', '~> 1.4'
   spec.add_dependency 'rails', '~> 7.0', '>= 7.0.0.0'
-  spec.add_dependency 'trifle-stats', '~> 1.3'
+  spec.add_dependency 'trifle-stats', '~> 2.0'
   spec.add_dependency 'trifle-traces', '~> 1.1'
   spec.add_development_dependency 'database_cleaner-active_record'
   spec.add_development_dependency 'dotenv-rails'
