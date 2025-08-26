@@ -25,8 +25,8 @@ module Perilune
       )
 
       series.transpond.average(
-        path: type, key: 'average_duration',
-        sum: 'duration', count: 'count'
+        response: "#{type}.average_duration",
+        sum: "#{type}.duration", count: "#{type}.count"
       )
 
       format_timeline_data(series, "#{type}.average_duration")
