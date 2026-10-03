@@ -27,7 +27,7 @@ $ gem install perilune
 
 Perilune is a Ruby on Rails Engine that you need to mount into your Rails Application. You may want to change default values in a custom initializer.
 
-Configuration lets you modify two attributes. `queue_name` and `stats_driver`. 
+Configuration lets you modify two attributes. `queue_name` and `stats_driver`.
 - `queue_name` - Perilune uses ActiveJob to process its tasks. It defaults to `default` queue and you may want to change it to dedicated queue.
 - `stats_driver` - Perilune uses `Trifle::Stats` to track its analytics. It defaults to `Redis` driver and you may want to change it to driver of your choice.
 
@@ -38,12 +38,20 @@ Configuration lets you modify two attributes. `queue_name` and `stats_driver`.
 
 Perilune.configure do |config|
   config.queue_name = 'test'
-  config.stat_driver = Trifle::Stats::Driver::Postgres.new(
+  config.stats_driver = Trifle::Stats::Driver::Postgres.new(
     ActiveRecord::Base.connection.instance_variable_get('@connection')
   )
 end
 ```
 You can find more driver [here](https://trifle.io/docs/stats/drivers/)
+
+Task metrics are written directly to `stats_driver`, with buffering disabled.
+The activity charts query the same driver and display the average task duration
+in milliseconds for each hour. Empty hours are omitted.
+
+Perilune keeps task traces in its own `trace_data` and `trace_state` fields using
+an isolated Trifle Traces configuration and a wrapup callback. This works with
+Trifle Traces 1.x and 2.x without using the host application's storage drivers.
 
 ``` ruby
 # config/routes.rb

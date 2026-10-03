@@ -21,24 +21,20 @@ module Perilune
     def get_general_series_for(type:, from:, to:, status:)
       series = Trifle::Stats.series(
         key: "perilune::#{type}::#{status}", from: from, to: to,
-        granularity: '1h', skip_blanks: true
+        granularity: '1h', skip_blanks: true, config: Perilune.default.stats_driver_config
       )
 
-      series.transpond.average(
-        response: "#{type}.average_duration",
-        sum: "#{type}.duration", count: "#{type}.count"
-      )
-
-      format_timeline_data(series, "#{type}.average_duration")
+      format_timeline_data(series, type)
     end
 
-    def format_timeline_data(series, path)
-      series.format.timeline(path: path) do |at, value|
-        {
-          x: at.to_i * 1000,
-          y: value.to_f
-        }
-      end.first
+    def format_timeline_data(series, type)
+      count_path = "#{type}.count"
+      counts = series.format.timeline(path: count_path).fetch(count_path, []).to_h
+      duration_path = "#{type}.duration"
+      series.format.timeline(path: duration_path) do |at, duration|
+        count = counts.fetch(at, 0)
+        { x: at.to_i * 1000, y: count.positive? ? duration.to_f / count : 0.0 }
+      end.fetch(duration_path, [])
     end
   end
 end
